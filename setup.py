@@ -48,7 +48,7 @@ if sys.argv[-1] == 'publish':
 install_requires = [
     'jinja2',
     'pandas',
-    'tensorflow',
+    'tensorflow-macos',
     'tensorflow-probability >= 0.14.0',
     'matplotlib',
 ]
