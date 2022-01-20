@@ -366,9 +366,9 @@ def fit_model(
         @tf.function()
         def _run_vi():  # pragma: no cover
             tfp.vi.fit_surrogate_posterior(
-                target_log_prob_fn=model.joint_log_prob(
+                target_log_prob_fn=model.joint_distribution(
                     observed_time_series=observed_time_series
-                ),
+                ).log_prob,
                 surrogate_posterior=variational_posteriors,
                 optimizer=optimizer,
                 num_steps=variational_steps
@@ -408,7 +408,8 @@ def build_one_step_dist(
     return tfp.sts.one_step_predictive(
         model=model,
         observed_time_series=observed_time_series,
-        parameter_samples=parameter_samples
+        parameter_samples=parameter_samples,
+        timesteps_are_event_shape=True
     )
 
 
